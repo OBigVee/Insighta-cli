@@ -1,0 +1,13 @@
+services:
+  cli:
+    build: .
+    image: insighta-cli:latest
+    container_name: insighta-cli
+    volumes:
+      - ~/.insighta:/root/.insighta
+    stdin_open: true # Equivalent to -i
+    tty: true        # Equivalent to -t
+    environment:
+      - INSIGHTA_BACKEND_URL=https://stage1.doxantro.com
+    # No command specified here so users can provide their own
+    # e.g., docker-compose run --rm cli profiles list

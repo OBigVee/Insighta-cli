@@ -22,6 +22,30 @@ go build -o insighta .
 sudo mv insighta /usr/local/bin/
 ```
 
+### Docker
+
+You can also run the CLI as a container:
+
+```bash
+# Build the image
+docker build -t insighta-cli .
+
+# Run a command (e.g., list profiles)
+# Note: you can mount a volume to persist your login credentials
+docker run -it -v ~/.insighta:/root/.insighta insighta-cli profiles list
+```
+
+### Docker Compose (Recommended for sharing)
+
+If you have Docker Compose installed, you can run commands even more easily:
+
+```bash
+# Build and run a command
+docker-compose run --rm cli profiles list
+```
+
+This method automatically handles volume mounting and interactive terminal settings for you.
+
 ## Usage
 
 ### Authentication
