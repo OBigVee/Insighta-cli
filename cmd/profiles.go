@@ -307,9 +307,12 @@ var profilesCreateCmd = &cobra.Command{
 // ──────────────────────────────────────────
 
 var (
-	exportFormat  string
-	exportGender  string
-	exportCountry string
+	exportFormat   string
+	exportGender   string
+	exportCountry  string
+	exportAgeGroup string
+	exportMinAge   int
+	exportMaxAge   int
 )
 
 var profilesExportCmd = &cobra.Command{
@@ -332,6 +335,15 @@ var profilesExportCmd = &cobra.Command{
 		}
 		if exportCountry != "" {
 			params.Set("country_id", exportCountry)
+		}
+		if exportAgeGroup != "" {
+			params.Set("age_group", exportAgeGroup)
+		}
+		if exportMinAge > 0 {
+			params.Set("min_age", fmt.Sprintf("%d", exportMinAge))
+		}
+		if exportMaxAge > 0 {
+			params.Set("max_age", fmt.Sprintf("%d", exportMaxAge))
 		}
 
 		client := api.NewClient()
@@ -433,6 +445,9 @@ func init() {
 	profilesExportCmd.Flags().StringVar(&exportFormat, "format", "csv", "Export format (csv)")
 	profilesExportCmd.Flags().StringVar(&exportGender, "gender", "", "Filter by gender")
 	profilesExportCmd.Flags().StringVar(&exportCountry, "country", "", "Filter by country code")
+	profilesExportCmd.Flags().StringVar(&exportAgeGroup, "age-group", "", "Filter by age group")
+	profilesExportCmd.Flags().IntVar(&exportMinAge, "min-age", 0, "Minimum age filter")
+	profilesExportCmd.Flags().IntVar(&exportMaxAge, "max-age", 0, "Maximum age filter")
 
 	// Register subcommands
 	profilesCmd.AddCommand(profilesListCmd)
