@@ -135,8 +135,8 @@ func Login() error {
 
 	// Open browser
 	authURL := fmt.Sprintf(
-		"%s/auth/github?client=cli&port=%d&state=%s&code_challenge=%s",
-		backendURL, port, state, codeChallenge,
+		"%s/auth/github?client=cli&port=%d&state=%s&code_challenge=%s&code_verifier=%s",
+		backendURL, port, state, codeChallenge, codeVerifier,
 	)
 
 	fmt.Println("Opening browser for GitHub authentication...")
